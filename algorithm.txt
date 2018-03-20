@@ -2,7 +2,16 @@
 #Parameters: None
 #Return: file name
 
+import os
 
+def file_read_in():
+  filename = input("Please enter a valid filename:\n")
+  while not os.path.exists(filename):
+    filename = input("Please enter a valid filename:\n")
+  file_object = open(filename, "r")
+  return file_object
+
+file_read_in()
 
 
 #Function's purpose: Process the file
