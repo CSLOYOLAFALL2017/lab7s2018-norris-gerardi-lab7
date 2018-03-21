@@ -1,33 +1,55 @@
 #Functions's purpose: read in a file name from the user and return it once they give one that exists
 #Parameters: None
-#Return: file name
+#Return: filename
 
-import os
-
-def file_read_in():
-  filename = input("Please enter a valid filename:\n")
-  while not os.path.exists(filename):
+def file_read_():
     filename = input("Please enter a valid filename:\n")
-  file_object = open(filename, "r")
-  return file_object
-
-file_read_in()
+    while not os.path.exists(filename):
+      filename = input("Please enter a valid filename:\n")
+    return filename
 
 
 #Function's purpose: Process the file
 #Parameters: file name of file to read from
 #Return: The maximum profit
 
+def highest_profit():
+    max_profit = 0
+    global max_profit_title
+    file_open = open(filename, "r")
+    file_to_write()
+    for line in file_open:
+        releaseDate, movieTitle, budget, boxOfficeGross = line.split(',')
+        profit = float(boxOfficeGross) - float(budget)
+        print(releaseDate, movieTitle, profit, '\n', file= new_file)
+        if profit > max_profit:
+            max_profit = profit
+            max_profit_title = movieTitle
+    max_profit = '{0:,.2f}'.format(max_profit)
+    file_open.close()
+    new_file.close()
+
+    return max_profit
 
 
+#Function's purpose: Create or override a file for writing.
+#Parameters: None
+#Return: new_file
 
-#Function's purpose: Process the file
-#Parameters: file name of file to read from, file name of file to write to
-#Return: None
-
-
+def file_to_write():
+    global new_file
+    global new_files_name
+    new_files_name = input("Please enter a new filename:\n")
+    new_file = open(new_files_name + ".csv", "w")
+    return new_file
 
 
 #Function's purpose: main
 #Parameters: None
 #Return: None
+
+def main():
+    print('{:15}{}'.format("Highest profit: $", highest_profit(file_read())),
+        '\n', '{:16}{}'.format("Movie title: ", max_profit_title),
+        '\n', "File: ", new_files_name, ".csv, has been created in the local directory.",
+        sep='')
